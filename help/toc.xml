@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<toc version="1.0">
+    <tocitem text="Ejemplo JavaHelp" target="aplicacion">
+        <tocitem text="Ventana de entrada" target="ventana_entrada"/>
+        <tocitem text="Ventana de juego" target="ventana_juego">
+            <tocitem text="Estado" target="panel_estado"/>
+            <tocitem text="Duelos" target="panel_duelos"/>
+            <tocitem text="Misiones" target="panel_misiones"/>
+            <tocitem text="Bazar" target="panel_bazar"/>
+            <tocitem text="Clasificacion" target="panel_clasificacion"/>
+        </tocitem>
+</toc>

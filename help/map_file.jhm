@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<!DOCTYPE map
+PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Map Version 2.0//EN"
+"http://java.sun.com/products/javahelp/map_2_0.dtd">
+<map version="1.0">
+   <mapID target="aplicacion" url="html/main.html" />
+   <mapID target="ventana_entrada" url="html/entrada.html" />
+   <mapID target="ventana_juego" url="html/juego.html" />
+   <mapID target="panel_estado" url="html/estado.html" />
+   <mapID target="panel_duelos" url="html/duelos.html" />
+   <mapID target="panel_misiones" url="html/misiones.html" />
+   <mapID target="panel_bazar" url="html/bazar.html" />
+   <mapID target="panel_clasificacion" url="html/clasificacion.html" />
+</map>
