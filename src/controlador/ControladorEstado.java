@@ -58,6 +58,7 @@ public class ControladorEstado implements ActionListener {
                     break;
                 case "subirConstitucion":
                     flujoJuego.getJugador().subirAtributo(3);
+                    flujoJuego.getJugador().setVidaActual(flujoJuego.getJugador().getVidaMax());
                     break;
                 case "equipar":
                     if (equipoSeleccionado.getToolTipText() != null) {

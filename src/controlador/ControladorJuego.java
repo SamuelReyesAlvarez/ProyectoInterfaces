@@ -72,7 +72,10 @@ public class ControladorJuego implements ActionListener {
                     // deshabilita el boton Terminar Turno mientras se realiza la simulacion
                     pJuego.getBotonTerminar().setEnabled(false);
                     // simula los jugadores de la maquina
-                    flujoJuego.pasarTurno();
+                    String mensaje = flujoJuego.pasarTurno();
+                    if (mensaje != null && mensaje.length() > 0) {
+                        JOptionPane.showMessageDialog(vJuego, mensaje);
+                    }
                     // activa de nuevo el boton Terminar Turno y actualiza la pantalla de juego
                     pJuego.getBotonTerminar().setEnabled(true);
                     pEstado = new PanelEstado();

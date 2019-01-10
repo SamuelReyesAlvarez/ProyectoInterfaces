@@ -257,7 +257,7 @@ public class Jugador implements Comparable<Jugador> {
         //setVidaActual(vidaMax);
     }
 
-    protected void setVidaActual(int vidaActual) {
+    public void setVidaActual(int vidaActual) {
         if (vidaActual < 0) {
             vidaActual = 0;
         }
@@ -451,7 +451,7 @@ public class Jugador implements Comparable<Jugador> {
 
             return mensaje.toString();
         }
-        return null;
+        return "";
     }
 
     public String actualizarInventario(Equipamiento equipamiento, boolean aniadir) {
@@ -493,8 +493,8 @@ public class Jugador implements Comparable<Jugador> {
 
     public void mejorarEquipo(Equipamiento equipo) throws JuegoException {
         if (getOroActual() > equipo.getValorPotenciar()) {
-            equipo.aumentarPotenciado();
             oroActual -= equipo.getValorPotenciar();
+            equipo.aumentarPotenciado();
             if (equipo.isEquipado()) {
                 actualizarAtributosEquipar();
             }
@@ -506,14 +506,14 @@ public class Jugador implements Comparable<Jugador> {
     public void venderEquipo(Equipamiento equipo) throws JuegoException {
         if (inventario.remove(equipo)) {
             setOroActual((int) (oroActual + (equipo.getValor() / TASA_VENTA_DIRECTA)));
-            throw new JuegoException("Has vendido el objeto por " + ((int) equipo.getValor() / TASA_VENTA_DIRECTA));
+            throw new JuegoException("Has vendido el objeto por " + (equipo.getValor() / TASA_VENTA_DIRECTA));
         } else if (equipado[equipo.getTipo().ordinal()].equals(equipo)) {
             equipado[equipo.getTipo().ordinal()] = null;
             setOroActual((int) (oroActual + (equipo.getValor() / TASA_VENTA_DIRECTA)));
-            throw new JuegoException("Has vendido el objeto por " + ((int) equipo.getValor() / TASA_VENTA_DIRECTA));
+            throw new JuegoException("Has vendido el objeto por " + (equipo.getValor() / TASA_VENTA_DIRECTA));
+        } else {
+            throw new JuegoException("No se ha encontrado el objeto:\n" + equipo);
         }
-
-        throw new JuegoException("No se ha encontrado el objeto:\n" + equipo);
     }
 
     @Override

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <toc version="1.0">
-    <tocitem text="Ejemplo JavaHelp" target="aplicacion">
+    <tocitem text="Ayuda de KnightFight" target="aplicacion">
         <tocitem text="Ventana de entrada" target="ventana_entrada"/>
         <tocitem text="Ventana de juego" target="ventana_juego">
             <tocitem text="Estado" target="panel_estado"/>

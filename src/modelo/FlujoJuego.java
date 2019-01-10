@@ -170,7 +170,10 @@ public class FlujoJuego {
         jugadorActual.setPosiblesDuelistas(duelistas);
     }
 
-    public void pasarTurno() throws IOException {
+    public String pasarTurno() throws IOException {
+        // Devuelve un mensaje con informacion relevante del jugador
+        String mensaje = null;
+
         // Se simula la actividad de todos los jugadores que participan en el juego
         int i = 1;
         for (Iterator<Jugador> iterator = competencia.iterator(); iterator.hasNext();) {
@@ -188,7 +191,7 @@ public class FlujoJuego {
 
         try {
             if (jugador.getMisionActiva() != null) {
-                jugador.avanzarMision();
+                mensaje = jugador.avanzarMision();
             }
         } catch (JuegoException ex) {
             // la simulacion debe continuar
@@ -198,10 +201,13 @@ public class FlujoJuego {
         crearDuelistas(jugador);
 
         System.out.println("Fin simulacion");
+
+        return mensaje;
     }
 
     private void simularTurno(Jugador jugadorSimulado) {
         Random r = new Random();
+        int numAleatorio;
 
         jugadorSimulado.setVidaActual(jugadorSimulado.getVidaMax());
 
@@ -209,7 +215,11 @@ public class FlujoJuego {
         if (jugadorSimulado.getPuntosAtrSinUsar() > 0) {
             for (int i = jugadorSimulado.getPuntosAtrSinUsar(); i > 0; i--) {
                 try {
-                    jugadorSimulado.subirAtributo(r.nextInt(jugadorSimulado.getAtributosJugador().length));
+                    numAleatorio = r.nextInt(jugadorSimulado.getAtributosJugador().length);
+                    jugadorSimulado.subirAtributo(numAleatorio);
+                    if (numAleatorio == 3) {
+                        jugadorSimulado.setVidaActual(jugadorSimulado.getVidaMax());
+                    }
                 } catch (JuegoException ex) {
                     // la simulacion debe continuar
                 }
@@ -304,6 +314,10 @@ public class FlujoJuego {
         int totalDanioJugador = 0;
         int totalDanioDuelista = 0;
         int turnoCombateActual = 0;
+
+        if (jugadorActual.getVidaActual() < (jugadorActual.getVidaMax() / 10)) {
+            throw new JuegoException("No puedes combatir estando tan herido. Debes recuperar vida");
+        }
 
         do {
             turnoCombateActual++;
