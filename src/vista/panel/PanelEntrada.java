@@ -360,7 +360,7 @@ public class PanelEntrada extends javax.swing.JPanel {
         ArrayList<String> lista = new ArrayList<>();
 
         for (int i = 0; i < tblGuardadas.getRowCount(); i++) {
-            lista.add(tblGuardadas.getValueAt(i, 1).toString());
+            lista.add(tblGuardadas.getValueAt(i, 1).toString().toUpperCase());
         }
 
         return lista;

@@ -63,7 +63,7 @@ public class ControladorEntrada implements ActionListener {
                     // obtiene el nombre escrito por el usuario en la etiqueta
                     nombre = pEntrada.getTxtNombre().getText();
                     // comprueba si ya hay una partida con ese nombre
-                    if (!pEntrada.getNombresTabla().contains(nombre)) {
+                    if (!pEntrada.getNombresTabla().contains(nombre.toUpperCase())) {
                         // comprueba si el nombre tiene el formato correcto
                         new Jugador(nombre);
                         bd = new BasesDeDatos(nombre);
@@ -71,7 +71,6 @@ public class ControladorEntrada implements ActionListener {
                         // si todo bien, comienza una nueva partida
                     } else {
                         JOptionPane.showMessageDialog(vEntrada, "Ya existe una partida guardada con ese nombre");
-                        bd.cerrarConexion();
                     }
                     break;
                 case "cargar":
@@ -81,7 +80,6 @@ public class ControladorEntrada implements ActionListener {
                         nueva = false;
                     } catch (ArrayIndexOutOfBoundsException ex) {
                         JOptionPane.showMessageDialog(vEntrada, "Debe seleccionar una partida para cargar");
-                        bd.cerrarConexion();
                     }
                     break;
                 case "borrar":
