@@ -322,7 +322,7 @@ public class FlujoJuego {
         do {
             turnoCombateActual++;
 
-            resumenCombate.append("Turno del combate: " + turnoCombateActual + "\n");
+            resumenCombate.append("Ronda del combate: " + turnoCombateActual + "\n");
 
             danioJugador = (r.nextInt(jugadorActual.getAtaqueMax() - jugadorActual.getAtaqueMin()) + jugadorActual.getAtaqueMin()) - (r.nextInt(duelista.getDefensaMax() - duelista.getDefensaMin()) + duelista.getDefensaMin());
             if (danioJugador < 0) {

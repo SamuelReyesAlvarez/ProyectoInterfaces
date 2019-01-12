@@ -234,7 +234,7 @@
                 <Component class="javax.swing.JButton" name="btnConstitucion">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="+"/>
-                    <Property name="toolTipText" type="java.lang.String" value="Gastar punto en subir Constitucion"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Gastar punto en subir Constitucion y curar al personaje"/>
                     <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                       <Insets value="[0, 0, 0, 0]"/>
                     </Property>

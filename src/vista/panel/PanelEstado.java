@@ -223,7 +223,7 @@ public class PanelEstado extends javax.swing.JPanel {
         panelConstitucion.add(pbConstitucion);
 
         btnConstitucion.setText("+");
-        btnConstitucion.setToolTipText("Gastar punto en subir Constitucion");
+        btnConstitucion.setToolTipText("Gastar punto en subir Constitucion y curar al personaje");
         btnConstitucion.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnConstitucion.setPreferredSize(new java.awt.Dimension(40, 37));
         panelConstitucion.add(btnConstitucion);
