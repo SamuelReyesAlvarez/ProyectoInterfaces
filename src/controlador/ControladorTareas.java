@@ -69,9 +69,9 @@ public class ControladorTareas extends MouseAdapter implements ActionListener {
                         throw new JuegoException("Primero debes seleccionar un articulo");
                     }
                     Equipamiento equipo = flujoJuego.getMercado().get(pBazar.getSeleccionado());
-                    if (JOptionPane.showConfirmDialog(vJuego, "¿Deseas comprar " + equipo.toString() + " por " + equipo.getPrecio() + " monedas de oro?") == JOptionPane.YES_OPTION) {
+                    if (JOptionPane.showConfirmDialog(vJuego, "¿Deseas comprar " + equipo.toString() + " por " + (equipo.getPrecio() + (equipo.getPrecio() / flujoJuego.getTasaMercader())) + " monedas de oro?") == JOptionPane.YES_OPTION) {
                         flujoJuego.compraEnMercado(flujoJuego.getJugador(), equipo);
-                        JOptionPane.showMessageDialog(vJuego, "Has comprado " + equipo.toString() + " por " + equipo.getPrecio() + " monedas de oro");
+                        JOptionPane.showMessageDialog(vJuego, "Has comprado " + equipo.toString() + " por " + (equipo.getPrecio() + (equipo.getPrecio() / flujoJuego.getTasaMercader())) + " monedas de oro");
                     }
                     actualizarPBazar();
                     ctrJuego.actualizarPJuego();
@@ -138,9 +138,9 @@ public class ControladorTareas extends MouseAdapter implements ActionListener {
 
         for (int i = 0; i < articulos.length; i++) {
             articulos[i] = flujoJuego.getMercado().get(i).getTipo().toString()
-                    + "\nNivel: " + flujoJuego.getMercado().get(i).getNivel()
-                    + "\tPotenciado: " + flujoJuego.getMercado().get(i).getPotenciado()
-                    + "\tPrecio: " + flujoJuego.getMercado().get(i).getPrecio();
+                    + " Nivel: " + flujoJuego.getMercado().get(i).getNivel()
+                    + " Potenciado: " + flujoJuego.getMercado().get(i).getPotenciado()
+                    + " Precio: " + flujoJuego.getMercado().get(i).getPrecio();
         }
 
         pBazar.setArticulos(articulos);

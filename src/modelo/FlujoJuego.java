@@ -47,6 +47,10 @@ public class FlujoJuego {
         jugador = new Jugador(nombre);
     }
 
+    public int getTasaMercader() {
+        return TASA_MERCADER;
+    }
+
     public Jugador getJugador() {
         return jugador;
     }
