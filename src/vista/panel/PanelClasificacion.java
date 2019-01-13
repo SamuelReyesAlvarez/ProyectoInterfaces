@@ -31,6 +31,8 @@ public class PanelClasificacion extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelTitulo = new javax.swing.JPanel();
+        etTitulo = new javax.swing.JLabel();
         scroll = new javax.swing.JScrollPane();
         clasificacion = new javax.swing.JTable();
 
@@ -39,6 +41,12 @@ public class PanelClasificacion extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(700, 550));
         setPreferredSize(new java.awt.Dimension(700, 550));
         setLayout(new java.awt.BorderLayout());
+
+        etTitulo.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        etTitulo.setText("Clasificacion general");
+        panelTitulo.add(etTitulo);
+
+        add(panelTitulo, java.awt.BorderLayout.NORTH);
 
         clasificacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -92,6 +100,8 @@ public class PanelClasificacion extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable clasificacion;
+    private javax.swing.JLabel etTitulo;
+    private javax.swing.JPanel panelTitulo;
     private javax.swing.JScrollPane scroll;
     // End of variables declaration//GEN-END:variables
 

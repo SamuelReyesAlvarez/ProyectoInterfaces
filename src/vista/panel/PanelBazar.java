@@ -51,7 +51,6 @@ public class PanelBazar extends javax.swing.JPanel {
 
         etTitulo.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         etTitulo.setText("Articulos en venta");
-        etTitulo.setEnabled(false);
         separador.setLeftComponent(etTitulo);
 
         btnAceptar.setText("Aceptar compra");

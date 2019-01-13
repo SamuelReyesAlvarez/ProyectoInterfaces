@@ -56,7 +56,6 @@
                   <Font name="Dialog" size="24" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Articulos en venta"/>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">

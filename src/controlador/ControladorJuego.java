@@ -1,5 +1,6 @@
 package controlador;
 
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -29,6 +30,7 @@ import vista.ventana.VentanaJuego;
  */
 public class ControladorJuego implements ActionListener {
 
+    private static final String FICHERO_MANUAL = "archivos/ManualUsuario.pdf";
     private static final String RUTA_AYUDA = "help/help_set.hs";
 
     private FlujoJuego flujoJuego;
@@ -83,6 +85,10 @@ public class ControladorJuego implements ActionListener {
                     pEstado.addControlador(ctrEstado);
                     pJuego.setPdCentro(pEstado);
                     JOptionPane.showMessageDialog(vJuego, "Comienza el turno " + flujoJuego.getTurnoDeJuego());
+                    break;
+                case "manual":
+                    // Manual de usuario
+                    Desktop.getDesktop().open(new File(FICHERO_MANUAL));
                     break;
                 case "guardar":
                     bDatos.guardarDatos(flujoJuego);
@@ -170,6 +176,7 @@ public class ControladorJuego implements ActionListener {
     }
 
     public void activarAyuda() {
+        // JavaHelp
         try {
             // Carga el fichero de ayuda
             File fichero = new File(RUTA_AYUDA);

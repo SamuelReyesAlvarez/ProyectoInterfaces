@@ -31,6 +31,9 @@ public class PanelDuelo extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelTitulo = new javax.swing.JPanel();
+        etTitulo = new javax.swing.JLabel();
+        panelContenido = new javax.swing.JPanel();
         pDuelista1 = new javax.swing.JPanel();
         pd1Foto = new javax.swing.JPanel();
         separador1 = new javax.swing.JSplitPane();
@@ -87,7 +90,17 @@ public class PanelDuelo extends javax.swing.JPanel {
         setMaximumSize(new java.awt.Dimension(700, 550));
         setMinimumSize(new java.awt.Dimension(700, 550));
         setPreferredSize(new java.awt.Dimension(700, 550));
-        setLayout(new java.awt.GridLayout(2, 2));
+        setLayout(new java.awt.BorderLayout());
+
+        panelTitulo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        etTitulo.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        etTitulo.setText("Posibles duelistas");
+        panelTitulo.add(etTitulo);
+
+        add(panelTitulo, java.awt.BorderLayout.PAGE_START);
+
+        panelContenido.setLayout(new java.awt.GridLayout(2, 2));
 
         pDuelista1.setMaximumSize(new java.awt.Dimension(350, 275));
         pDuelista1.setMinimumSize(new java.awt.Dimension(350, 275));
@@ -101,12 +114,10 @@ public class PanelDuelo extends javax.swing.JPanel {
         separador1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
         etNombre1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etNombre1.setEnabled(false);
         separador1.setTopComponent(etNombre1);
 
         etFoto1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etFoto1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        etFoto1.setEnabled(false);
         separador1.setBottomComponent(etFoto1);
 
         pd1Foto.add(separador1, java.awt.BorderLayout.CENTER);
@@ -119,27 +130,17 @@ public class PanelDuelo extends javax.swing.JPanel {
         pd1Estado.add(btnAtacar1, java.awt.BorderLayout.PAGE_END);
 
         pd1Atributos.setLayout(new java.awt.GridLayout(5, 1));
-
-        etNivel1.setEnabled(false);
         pd1Atributos.add(etNivel1);
-
-        etFuerza1.setEnabled(false);
         pd1Atributos.add(etFuerza1);
-
-        etArmadura1.setEnabled(false);
         pd1Atributos.add(etArmadura1);
-
-        etDestreza1.setEnabled(false);
         pd1Atributos.add(etDestreza1);
-
-        etConstitucion1.setEnabled(false);
         pd1Atributos.add(etConstitucion1);
 
         pd1Estado.add(pd1Atributos, java.awt.BorderLayout.CENTER);
 
         pDuelista1.add(pd1Estado);
 
-        add(pDuelista1);
+        panelContenido.add(pDuelista1);
 
         pDuelista2.setMaximumSize(new java.awt.Dimension(350, 275));
         pDuelista2.setMinimumSize(new java.awt.Dimension(350, 275));
@@ -153,12 +154,10 @@ public class PanelDuelo extends javax.swing.JPanel {
         separador2.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
         etNombre2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etNombre2.setEnabled(false);
         separador2.setTopComponent(etNombre2);
 
         etFoto2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etFoto2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        etFoto2.setEnabled(false);
         separador2.setBottomComponent(etFoto2);
 
         pd2Foto.add(separador2, java.awt.BorderLayout.CENTER);
@@ -171,27 +170,17 @@ public class PanelDuelo extends javax.swing.JPanel {
         pd2Estado.add(btnAtacar2, java.awt.BorderLayout.PAGE_END);
 
         pd2Atributos.setLayout(new java.awt.GridLayout(5, 1));
-
-        etNivel2.setEnabled(false);
         pd2Atributos.add(etNivel2);
-
-        etFuerza2.setEnabled(false);
         pd2Atributos.add(etFuerza2);
-
-        etArmadura2.setEnabled(false);
         pd2Atributos.add(etArmadura2);
-
-        etDestreza2.setEnabled(false);
         pd2Atributos.add(etDestreza2);
-
-        etConstitucion2.setEnabled(false);
         pd2Atributos.add(etConstitucion2);
 
         pd2Estado.add(pd2Atributos, java.awt.BorderLayout.CENTER);
 
         pDuelista2.add(pd2Estado);
 
-        add(pDuelista2);
+        panelContenido.add(pDuelista2);
 
         pDuelista3.setMaximumSize(new java.awt.Dimension(350, 275));
         pDuelista3.setMinimumSize(new java.awt.Dimension(350, 275));
@@ -205,12 +194,10 @@ public class PanelDuelo extends javax.swing.JPanel {
         separador3.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
         etNombre3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etNombre3.setEnabled(false);
         separador3.setTopComponent(etNombre3);
 
         etFoto3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etFoto3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        etFoto3.setEnabled(false);
         separador3.setBottomComponent(etFoto3);
 
         pd3Foto.add(separador3, java.awt.BorderLayout.CENTER);
@@ -223,27 +210,17 @@ public class PanelDuelo extends javax.swing.JPanel {
         pd3Estado.add(btnAtacar3, java.awt.BorderLayout.PAGE_END);
 
         pd3Atributos.setLayout(new java.awt.GridLayout(5, 1));
-
-        etNivel3.setEnabled(false);
         pd3Atributos.add(etNivel3);
-
-        etFuerza3.setEnabled(false);
         pd3Atributos.add(etFuerza3);
-
-        etArmadura3.setEnabled(false);
         pd3Atributos.add(etArmadura3);
-
-        etDestreza3.setEnabled(false);
         pd3Atributos.add(etDestreza3);
-
-        etConstitucion3.setEnabled(false);
         pd3Atributos.add(etConstitucion3);
 
         pd3Estado.add(pd3Atributos, java.awt.BorderLayout.CENTER);
 
         pDuelista3.add(pd3Estado);
 
-        add(pDuelista3);
+        panelContenido.add(pDuelista3);
 
         pDuelista4.setMaximumSize(new java.awt.Dimension(350, 275));
         pDuelista4.setMinimumSize(new java.awt.Dimension(350, 275));
@@ -257,12 +234,10 @@ public class PanelDuelo extends javax.swing.JPanel {
         separador4.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
         etNombre4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etNombre4.setEnabled(false);
         separador4.setTopComponent(etNombre4);
 
         etFoto4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etFoto4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        etFoto4.setEnabled(false);
         separador4.setBottomComponent(etFoto4);
 
         pd4Foto.add(separador4, java.awt.BorderLayout.CENTER);
@@ -275,27 +250,19 @@ public class PanelDuelo extends javax.swing.JPanel {
         pd4Estado.add(btnAtacar4, java.awt.BorderLayout.PAGE_END);
 
         pd4Atributos.setLayout(new java.awt.GridLayout(5, 1));
-
-        etNivel4.setEnabled(false);
         pd4Atributos.add(etNivel4);
-
-        etFuerza4.setEnabled(false);
         pd4Atributos.add(etFuerza4);
-
-        etArmadura4.setEnabled(false);
         pd4Atributos.add(etArmadura4);
-
-        etDestreza4.setEnabled(false);
         pd4Atributos.add(etDestreza4);
-
-        etConstitucion4.setEnabled(false);
         pd4Atributos.add(etConstitucion4);
 
         pd4Estado.add(pd4Atributos, java.awt.BorderLayout.CENTER);
 
         pDuelista4.add(pd4Estado);
 
-        add(pDuelista4);
+        panelContenido.add(pDuelista4);
+
+        add(panelContenido, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -331,10 +298,13 @@ public class PanelDuelo extends javax.swing.JPanel {
     private javax.swing.JLabel etNombre2;
     private javax.swing.JLabel etNombre3;
     private javax.swing.JLabel etNombre4;
+    private javax.swing.JLabel etTitulo;
     private javax.swing.JPanel pDuelista1;
     private javax.swing.JPanel pDuelista2;
     private javax.swing.JPanel pDuelista3;
     private javax.swing.JPanel pDuelista4;
+    private javax.swing.JPanel panelContenido;
+    private javax.swing.JPanel panelTitulo;
     private javax.swing.JPanel pd1Atributos;
     private javax.swing.JPanel pd1Estado;
     private javax.swing.JPanel pd1Foto;

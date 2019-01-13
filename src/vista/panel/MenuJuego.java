@@ -13,11 +13,13 @@ import javax.swing.JMenuItem;
 public class MenuJuego extends JMenuBar {
 
     private JMenu opciones, acciones;
-    private JMenuItem ayuda, guardar, salirPartida, salirJuego, estado, duelo, mision, bazar, clasificacion;
+    private JMenuItem tutorial, manual, ayuda, guardar, salirPartida, salirJuego, estado, duelo, mision, bazar, clasificacion;
 
     public MenuJuego() {
         opciones = new JMenu("Opciones");
         acciones = new JMenu("Acciones");
+        tutorial = new JMenuItem("Tutorial paso a paso");
+        manual = new JMenuItem("Manual de usuario");
         ayuda = new JMenuItem("Ayuda de KnightFight");
         guardar = new JMenuItem("Guardar partida");
         salirPartida = new JMenuItem("Salir de la partida");
@@ -39,7 +41,11 @@ public class MenuJuego extends JMenuBar {
         mision.setMnemonic('m');
         opciones.setMnemonic('o');
         salirPartida.setMnemonic('p');
+        tutorial.setMnemonic('t');
+        manual.setMnemonic('u');
 
+        opciones.add(tutorial);
+        opciones.add(manual);
         opciones.add(ayuda);
         opciones.add(guardar);
         opciones.add(salirPartida);
