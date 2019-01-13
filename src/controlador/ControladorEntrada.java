@@ -1,5 +1,6 @@
 package controlador;
 
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -7,6 +8,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.help.HelpBroker;
 import javax.help.HelpSet;
 import javax.help.HelpSetException;
@@ -28,6 +31,7 @@ import vista.ventana.VentanaJuego;
  */
 public class ControladorEntrada implements ActionListener {
 
+    private static final String FICHERO_TUTORIAL = "archivos/Tutorial.pdf";
     private static final String RUTA_AYUDA = "help/help_set.hs";
 
     private VentanaEntrada vEntrada;
@@ -59,6 +63,14 @@ public class ControladorEntrada implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try {
             switch (e.getActionCommand()) {
+                case "tutorial":
+                    // Funcion temporal del boton Tutorial para acceder al documento
+                    try {
+                        Desktop.getDesktop().open(new File(FICHERO_TUTORIAL));
+                    } catch (IOException ex) {
+                        Logger.getLogger(ControladorEntrada.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
                 case "nueva":
                     // obtiene el nombre escrito por el usuario en la etiqueta
                     nombre = pEntrada.getTxtNombre().getText();
@@ -178,10 +190,10 @@ public class ControladorEntrada implements ActionListener {
             HelpSet helpset = new HelpSet(getClass().getClassLoader(), hsURL);
             HelpBroker hb = helpset.createHelpBroker();
 
-            // Activa Help en botones
+            // Activa Help y Tutorial en botones
             // Asigna la tecla F1 para la ventana actual (no fundiona)
             hb.enableHelpOnButton(pEntrada.getAyuda(), "aplicacion", helpset);
-            hb.enableHelpOnButton(pEntrada.getTutorial(), "tutorial", helpset);
+            //hb.enableHelpOnButton(pEntrada.getTutorial(), "tutorial", helpset);
             hb.enableHelpKey(vEntrada.getContentPane(), "ventana_entrada", helpset);
         } catch (MalformedURLException | HelpSetException ex) {
             JOptionPane.showMessageDialog(vEntrada, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

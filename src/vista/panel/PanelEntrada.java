@@ -362,6 +362,8 @@ public class PanelEntrada extends javax.swing.JPanel {
         btnNuevaPartida.setActionCommand("nueva");
         btnSalir.addActionListener(al);
         btnSalir.setActionCommand("salir");
+        tutorial.addActionListener(al);
+        tutorial.setActionCommand("tutorial");
     }
 
     public ArrayList<String> getNombresTabla() {
