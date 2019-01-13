@@ -139,6 +139,8 @@ public class Equipamiento implements Comparable<Equipamiento> {
         return true;
     }
 
+    // Ya no es necesario comparar por "equipado"
+    // Pendiente de revisión
     @Override
     public int compareTo(Equipamiento o) {
         if (this.equipado && !o.equipado) {

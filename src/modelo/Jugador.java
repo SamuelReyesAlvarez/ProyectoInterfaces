@@ -443,31 +443,29 @@ public class Jugador implements Comparable<Jugador> {
             mensaje.append(e.getMessage());
             mensaje.append("\nRecibe: " + subirMisiones(misionActiva.getRecompensa()) + " monedas de oro");
             equipo = crearEquipo();
-            mensaje.append(actualizarInventario(equipo, true));
             if (equipo != null) {
-                mensaje.append("\n y un objeto nuevo");
+                mensaje.append(" y un objeto nuevo");
+                mensaje.append(actualizarInventario(equipo, true));
             }
             setMisionActiva(null);
-
             return mensaje.toString();
         }
         return "";
     }
 
     public String actualizarInventario(Equipamiento equipamiento, boolean aniadir) {
-        String mensaje = null;
+        String mensaje = "";
         if (equipamiento != null) {
             if (aniadir) {
                 if (inventario.size() < TAMANIO_MAX_INVENTARIO) {
                     inventario.add(equipamiento);
                 } else {
-                    mensaje = "Inventario lleno, se ha perdido el objeto";
+                    mensaje = "\nInventario lleno, se ha perdido el objeto";
                 }
-            } else if (!aniadir) {
+            } else {
                 inventario.remove(equipamiento);
             }
         }
-
         Collections.sort(inventario);
         return mensaje;
     }
