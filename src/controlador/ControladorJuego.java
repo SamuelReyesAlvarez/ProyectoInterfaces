@@ -30,6 +30,7 @@ import vista.ventana.VentanaJuego;
  */
 public class ControladorJuego implements ActionListener {
 
+    private static final String FICHERO_TUTORIAL = "archivos/Tutorial.pdf";
     private static final String FICHERO_MANUAL = "archivos/ManualUsuario.pdf";
     private static final String RUTA_AYUDA = "help/help_set.hs";
 
@@ -85,6 +86,10 @@ public class ControladorJuego implements ActionListener {
                     pEstado.addControlador(ctrEstado);
                     pJuego.setPdCentro(pEstado);
                     JOptionPane.showMessageDialog(vJuego, "Comienza el turno " + flujoJuego.getTurnoDeJuego());
+                    break;
+                case "tutorial":
+                    // Tutorial paso a paso de tareas en la aplicacion
+                    Desktop.getDesktop().open(new File(FICHERO_TUTORIAL));
                     break;
                 case "manual":
                     // Manual de usuario

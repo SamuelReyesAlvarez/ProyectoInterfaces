@@ -93,10 +93,10 @@ public class ControladorEntrada implements ActionListener {
                         bd = null;
                     } catch (ArrayIndexOutOfBoundsException ex) {
                         JOptionPane.showMessageDialog(vEntrada, "Debe seleccionar una partida a borrar");
-                        bd.cerrarConexion();
                     } catch (IOException ex) {
                         JOptionPane.showMessageDialog(vEntrada, ex.getMessage());
                         bd.cerrarConexion();
+                        bd = null;
                     }
 
                     vEntrada.revalidate();
@@ -108,6 +108,8 @@ public class ControladorEntrada implements ActionListener {
             }
         } catch (JuegoException ex) {
             JOptionPane.showMessageDialog(vEntrada, ex.getMessage());
+            bd.cerrarConexion();
+            bd = null;
         }
     }
 
@@ -176,8 +178,10 @@ public class ControladorEntrada implements ActionListener {
             HelpSet helpset = new HelpSet(getClass().getClassLoader(), hsURL);
             HelpBroker hb = helpset.createHelpBroker();
 
-            // Activa Help en boton y asigna la tecla F1 para la ventana actual
+            // Activa Help en botones
+            // Asigna la tecla F1 para la ventana actual (no fundiona)
             hb.enableHelpOnButton(pEntrada.getAyuda(), "aplicacion", helpset);
+            hb.enableHelpOnButton(pEntrada.getTutorial(), "tutorial", helpset);
             hb.enableHelpKey(vEntrada.getContentPane(), "ventana_entrada", helpset);
         } catch (MalformedURLException | HelpSetException ex) {
             JOptionPane.showMessageDialog(vEntrada, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

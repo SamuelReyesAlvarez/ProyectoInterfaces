@@ -227,7 +227,9 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="ayuda" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="106" max="32767" attributes="0"/>
+                          <EmptySpace pref="27" max="32767" attributes="0"/>
+                          <Component id="tutorial" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -235,7 +237,10 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="ayuda" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="ayuda" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="tutorial" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -245,6 +250,11 @@
                 <Component class="javax.swing.JButton" name="ayuda">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="?"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="tutorial">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Tutorial"/>
                   </Properties>
                 </Component>
               </SubComponents>

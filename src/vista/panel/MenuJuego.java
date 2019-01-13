@@ -61,6 +61,10 @@ public class MenuJuego extends JMenuBar {
     }
 
     public void addControlador(ActionListener al) {
+        tutorial.addActionListener(al);
+        tutorial.setActionCommand("tutorial");
+        manual.addActionListener(al);
+        manual.setActionCommand("manual");
         guardar.addActionListener(al);
         guardar.setActionCommand("guardar");
         salirPartida.addActionListener(al);

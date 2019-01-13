@@ -50,6 +50,7 @@ public class PanelEntrada extends javax.swing.JPanel {
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         ayuda = new javax.swing.JButton();
+        tutorial = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         btnSalir = new javax.swing.JButton();
         panelDerecho = new javax.swing.JPanel();
@@ -200,6 +201,8 @@ public class PanelEntrada extends javax.swing.JPanel {
 
         ayuda.setText("?");
 
+        tutorial.setText("Tutorial");
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -207,13 +210,17 @@ public class PanelEntrada extends javax.swing.JPanel {
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(ayuda)
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(tutorial)
+                .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(ayuda)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ayuda)
+                    .addComponent(tutorial))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -342,6 +349,7 @@ public class PanelEntrada extends javax.swing.JPanel {
     private javax.swing.JScrollPane scrollTabla;
     private javax.swing.JSplitPane separador;
     private javax.swing.JTable tblGuardadas;
+    private javax.swing.JButton tutorial;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 
@@ -391,5 +399,9 @@ public class PanelEntrada extends javax.swing.JPanel {
 
     public JButton getAyuda() {
         return ayuda;
+    }
+
+    public JButton getTutorial() {
+        return tutorial;
     }
 }
