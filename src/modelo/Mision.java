@@ -44,7 +44,7 @@ public class Mision {
     protected void disminuirDuracion() throws JuegoException {
         duracion--;
 
-        if (duracion == 0) {
+        if (duracion < 1) {
             throw new JuegoException("La mision se ha completado");
         }
     }
