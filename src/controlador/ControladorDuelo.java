@@ -16,9 +16,12 @@ import vista.ventana.VentanaJuego;
  *
  * @author Samuel Reyes
  *
+ * Esta clase gestiona las funciones disponibles en el panel de Duelo
+ *
  */
 public class ControladorDuelo implements ActionListener {
 
+    // Objetos necesario para la gestion del panel
     private VentanaJuego vJuego;
     private PanelJuego pJuego;
     private PanelDuelo pDuelo;
@@ -26,6 +29,7 @@ public class ControladorDuelo implements ActionListener {
     private ControladorJuego ctrJuego;
     private Jugador[] duelistas;
 
+    // Constructor
     ControladorDuelo(VentanaJuego vJ, PanelJuego pJ, PanelDuelo pD, FlujoJuego flujo, ControladorJuego ctrJ) {
         vJuego = vJ;
         pJuego = pJ;
@@ -36,14 +40,18 @@ public class ControladorDuelo implements ActionListener {
         actualizarPDuelo();
     }
 
+    // Controla las acciones sobre los componentes que poseen un escuchador de eventos
     @Override
     public void actionPerformed(ActionEvent e) {
         String reporte;
 
+        // Comprueba si puede participar en combates
         if (flujoJuego.getJugador().getMisionActiva() != null) {
             JOptionPane.showMessageDialog(vJuego, "Completa la mision para poder realizar duelos");
         } else {
             try {
+                // Ejecuta la accion de atacar sobre el jugador seleccionado y
+                // muestra un informe con el resumen de la batalla
                 switch (e.getActionCommand()) {
                     case "atacar1":
                         reporte = flujoJuego.combate(flujoJuego.getJugador(), duelistas[0]);
@@ -63,6 +71,8 @@ public class ControladorDuelo implements ActionListener {
                         break;
                 }
 
+                // Al cerrar el informe crea una nueva seleccion de duelistas
+                // y actualiza los datos del jugador en las ventanas
                 flujoJuego.crearDuelistas(flujoJuego.getJugador());
                 PanelEstado pEstado = new PanelEstado();
                 ControladorEstado ctrEstado = new ControladorEstado(vJuego, pJuego, pEstado, flujoJuego, ctrJuego);
@@ -75,6 +85,7 @@ public class ControladorDuelo implements ActionListener {
         }
     }
 
+    // Actualiza los datos de la ventana con los valores del flujo de juego
     private void actualizarPDuelo() {
         duelistas = new Jugador[4];
 

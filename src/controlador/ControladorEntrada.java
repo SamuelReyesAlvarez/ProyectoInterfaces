@@ -28,12 +28,17 @@ import vista.ventana.VentanaJuego;
  *
  * @author Samuel Reyes
  *
+ * Gestiona las acciones realizadas y los datos visibles sobre la ventana de
+ * entrada
+ *
  */
 public class ControladorEntrada implements ActionListener {
 
+    // Localizacion de los ficheros necesarios en la clase
     private static final String FICHERO_TUTORIAL = "archivos/Tutorial.pdf";
     private static final String RUTA_AYUDA = "help/help_set.hs";
 
+    // Objetos necesarios para la gestion de la ventana
     private VentanaEntrada vEntrada;
     private PanelEntrada pEntrada;
     private FlujoJuego flujoJuego;
@@ -43,6 +48,7 @@ public class ControladorEntrada implements ActionListener {
     private String nombre;
     private boolean nueva;
 
+    // Constructor
     public ControladorEntrada(VentanaEntrada vE, PanelEntrada pE) {
         vEntrada = vE;
         pEntrada = pE;
@@ -50,6 +56,8 @@ public class ControladorEntrada implements ActionListener {
         pEntrada.setSize(600, 400);
 
         fRegistros = new FicheroRegistros();
+
+        // Rellena la tabla con los datos requeridos
         try {
             pEntrada.setDatosTabla(fRegistros.cargarRegistros());
         } catch (IOException ex) {
@@ -59,6 +67,8 @@ public class ControladorEntrada implements ActionListener {
         activarAyuda();
     }
 
+    // Controla las acciones realizadas por el usuario sobre los botones que
+    // poseen escuchadores de eventos
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
@@ -111,6 +121,7 @@ public class ControladorEntrada implements ActionListener {
                         bd = null;
                     }
 
+                    // Actualiza la ventana
                     vEntrada.revalidate();
                     vEntrada.repaint();
                     break;
@@ -120,11 +131,15 @@ public class ControladorEntrada implements ActionListener {
             }
         } catch (JuegoException ex) {
             JOptionPane.showMessageDialog(vEntrada, ex.getMessage());
-            bd.cerrarConexion();
+            if (bd != null) {
+                bd.cerrarConexion();
+            }
             bd = null;
         }
     }
 
+    // Inicia o carga todos los datos de la partida y simula la carga de la barra
+    // de progreso
     public FlujoJuego iniciarCarga(VentanaCarga vCarga, VentanaJuego vJuego, BasesDeDatos bd, String nombre, boolean nuevaPartida) {
         vEntrada.dispose();
 
