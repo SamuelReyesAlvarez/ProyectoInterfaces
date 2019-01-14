@@ -100,18 +100,20 @@ public class ControladorJuego implements ActionListener {
                     JOptionPane.showMessageDialog(pEstado, "Partida guardada");
                     break;
                 case "salirPartida":
-                    opcion = JOptionPane.showConfirmDialog(vJuego, "Vas a salir de la partida, ¿deseas guardarla?");
+                    opcion = JOptionPane.showConfirmDialog(vJuego, "Vas a salir de la partida, ¿deseas guardarla?", "Salir de la partida", JOptionPane.YES_NO_OPTION);
                     if (opcion == JOptionPane.YES_OPTION) {
                         bDatos.guardarDatos(flujoJuego);
                         vJuego.dispose();
+                        bDatos.cerrarConexion();
+                        bDatos = null;
                     } else if (opcion == JOptionPane.NO_OPTION) {
                         vJuego.dispose();
+                        bDatos.cerrarConexion();
+                        bDatos = null;
                     }
-                    bDatos.cerrarConexion();
-                    bDatos = null;
                     break;
                 case "salirJuego":
-                    opcion = JOptionPane.showConfirmDialog(vJuego, "Vas a salir del juego, ¿deseas guardar la partida?");
+                    opcion = JOptionPane.showConfirmDialog(vJuego, "Vas a salir del juego, ¿deseas guardar la partida?", "Salir del juego", JOptionPane.YES_NO_OPTION);
                     if (opcion == JOptionPane.YES_OPTION) {
                         bDatos.guardarDatos(flujoJuego);
                         bDatos.cerrarConexion();
