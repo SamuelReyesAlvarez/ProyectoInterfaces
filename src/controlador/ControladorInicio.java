@@ -17,16 +17,22 @@ import vista.ventana.VentanaInicio;
  *
  * @author Samuel Reyes
  *
+ * Gestiona la ejecucion del video de presentacion de la empresa
+ *
  */
 public class ControladorInicio extends KeyAdapter {
 
+    // Localicacion del video
     private static final String RUTA_VIDEO = "videos/iPlayGames480.mp4";
+    // Valores predefinidos para reproducir el video
     private static final int VOLUMEN_VIDEO = 1;
     private static final int TOTAL_CICLOS = 20;
 
+    // Objetos necesarios para la gestion de la ventana
     private VentanaInicio vInicio;
     private JFXPanel pVideo;
 
+    // Constructor
     public ControladorInicio(VentanaInicio vInicio) {
         this.vInicio = vInicio;
         pVideo = new JFXPanel();
@@ -37,6 +43,7 @@ public class ControladorInicio extends KeyAdapter {
         this.vInicio.dispose();
     }
 
+    // Crea un nuevo hilo donde carga y ejecuta el video
     public void cargarVideoEmpresa() {
         try {
             Platform.runLater(new Runnable() {
@@ -50,6 +57,8 @@ public class ControladorInicio extends KeyAdapter {
                 }
             });
 
+            // Pausa la ejecucion del proceso principal hasta que el video termine
+            // o sea interrumpido
             int ciclos = 0;
             do {
                 Thread.sleep(500);
@@ -60,6 +69,7 @@ public class ControladorInicio extends KeyAdapter {
         }
     }
 
+    // Cierra la ventana y fuerza la interrupcion del video al pulsa la tecla Esc
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {

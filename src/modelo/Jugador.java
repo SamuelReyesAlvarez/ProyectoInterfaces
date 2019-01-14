@@ -11,13 +11,16 @@ import java.util.Random;
  *
  * @author Samuel Reyes
  *
+ * Clase que define y asigna las funciones propias de cada participante en la
+ * partida
+ *
  */
 public class Jugador implements Comparable<Jugador> {
 
-    // Constantes
+    // Valores predefinidos para la gestion de la clase
     private static final int LONG_MIN_NOMBRE = 3;
     private static final int LONG_MAX_NOMBRE = 15;
-    //private static final String FORMATO_NOMBRE = "[a-zA-Z]{3,15}";
+    //private static final String FORMATO_NOMBRE = "[a-zA-Z]{3,15}"; // No funciona
     private static final int NIVEL_INICIAL = 1;
     private static final int EXPERIENCIA_INICIAL = 0;
     private static final int EXPERIENCIA_BASE = 2;
@@ -36,7 +39,7 @@ public class Jugador implements Comparable<Jugador> {
     private static final int PROBABILIDAD_CREAR_EQUIPO = 5;
     private static final int TASA_VENTA_DIRECTA = 2;
 
-    // Atributos
+    // Atributos que definen y componen al jugador
     private String nombre;
     private int nivel;
     private int expAcumulada;
@@ -59,6 +62,7 @@ public class Jugador implements Comparable<Jugador> {
     private LinkedList<Equipamiento> inventario;
     private Equipamiento[] equipado;
 
+    // Constructor
     public Jugador(String nombre) throws JuegoException {
         setNombre(nombre);
         setNivel(NIVEL_INICIAL);
@@ -78,7 +82,7 @@ public class Jugador implements Comparable<Jugador> {
         equipado = new Equipamiento[TipoEquipamiento.values().length];
     }
 
-    // Getters
+    // Metodos que devuelven los valores definidos en el jugador
     public String getNombre() {
         return nombre;
     }
@@ -187,8 +191,9 @@ public class Jugador implements Comparable<Jugador> {
         return TASA_VENTA_DIRECTA;
     }
 
-    // Setters
+    // Metodos que asignan valores para definir al jugador
     private void setNombre(String nombre) throws JuegoException {
+        // Controla el formato de nombre para el jugador
         if (nombre.length() < LONG_MIN_NOMBRE || nombre.length() > LONG_MAX_NOMBRE) {
             throw new JuegoException("El nombre debe contener entre " + LONG_MIN_NOMBRE + " y " + LONG_MAX_NOMBRE + " letras");
         }
@@ -201,7 +206,7 @@ public class Jugador implements Comparable<Jugador> {
     }
 
     /*
-    // No funciona el String.matches(regexp)
+    // No funciona String.matches(regexp)
     private void setNombre(String nombre) throws JuegoException {
         if (nombre.matches(FORMATO_NOMBRE)) {
             throw new JuegoException("El nombre debe contener entre 3 y 15 letras,\nsin espacios ni numeros ni caracteres especiales");
@@ -212,6 +217,7 @@ public class Jugador implements Comparable<Jugador> {
     protected void setExpAcumulada(int expGanada) throws JuegoException {
         this.expAcumulada += expGanada;
 
+        // Controla el aumento de nivel
         while (this.expAcumulada >= expSigNivel) {
             setNivel(nivel + 1);
             setPuntosAtrSinUsar(puntosAtrSinUsar + PUNTOS_ATR_NUEVO_NIVEL);
@@ -224,10 +230,12 @@ public class Jugador implements Comparable<Jugador> {
     }
 
     private void setExpSigNivel() {
+        // Calcula la experiencia necesaria para alcanzar el siguiente nivel
         expSigNivel = (int) Math.pow(EXPERIENCIA_BASE, nivel);
     }
 
     private void setPuntosAtrSinUsar(int puntosAtrSinUsar) throws JuegoException {
+        // Controla que no se usen mas puntos de los disponibles
         if (puntosAtrSinUsar < 0) {
             throw new JuegoException("Atributos sin usar no deben ser negativos");
         }
@@ -235,6 +243,7 @@ public class Jugador implements Comparable<Jugador> {
     }
 
     private void setAtributosJugador(int[] atributos) {
+        // Al modificarse los atributos se actualizan los valores de estado del personaje
         atributosJugador = atributos;
         setVidaMax();
         setAtaqueMin();
@@ -244,6 +253,7 @@ public class Jugador implements Comparable<Jugador> {
     }
 
     private void setAtributosEquipo(int[] atributos) {
+        // Al modificarse los atributos se actualizan los valores de estado del personaje
         atributosEquipo = atributos;
         setVidaMax();
         setAtaqueMin();
@@ -253,6 +263,7 @@ public class Jugador implements Comparable<Jugador> {
     }
 
     private void setVidaMax() {
+        // Calcula el valor de vida maxima segun los atributos del jugador
         vidaMax = VIDA_BASE + ((atributosJugador[3] + atributosEquipo[3]) * VALOR_CONSTITUCION);
         //setVidaActual(vidaMax);
     }
@@ -265,18 +276,22 @@ public class Jugador implements Comparable<Jugador> {
     }
 
     private void setAtaqueMin() {
+        // Calcula el valor de ataque minimo segun los atributos del jugador
         ataqueMin = ATAQUE_MIN_BASE + ((atributosJugador[0] + atributosEquipo[0]) * VALOR_FUERZA);
     }
 
     private void setAtaqueMax() {
+        // Calcula el valor de ataque maximo segun los atributos del jugador
         ataqueMax = ATAQUE_MAX_BASE + ((atributosJugador[0] + atributosEquipo[0]) * VALOR_FUERZA) + ((atributosJugador[2] + atributosEquipo[2]) * VALOR_DESTREZA);
     }
 
     private void setDefensaMin() {
+        // Calcula el valor de defensa minima segun los atributos del jugador
         defensaMin = DEFENSA_MIN_BASE + ((atributosJugador[1] + atributosEquipo[1]) * VALOR_ARMADURA);
     }
 
     private void setDefensaMax() {
+        // Calcula el valor de defensa maxima segun los atributos del jugador
         defensaMax = DEFENSA_MAX_BASE + ((atributosJugador[1] + atributosEquipo[1]) * VALOR_ARMADURA) + ((atributosJugador[2] + atributosEquipo[2]) * VALOR_DESTREZA);
     }
 
@@ -300,6 +315,7 @@ public class Jugador implements Comparable<Jugador> {
     }
 
     public void setMisionActiva(Mision nuevaMision) throws JuegoException {
+        // Establece una nueva mision en curso para el jugador si es posible
         if (vidaActual < vidaMax && nuevaMision != null) {
             throw new JuegoException("No puedes ir a una mision estando herido");
         }
@@ -313,6 +329,7 @@ public class Jugador implements Comparable<Jugador> {
     protected void setInventario(LinkedList<Equipamiento> inventario) throws JuegoException {
         this.inventario = inventario;
 
+        // Comprueba los objetos del inventario para equipar los que se especifiquen
         for (Equipamiento equipo : this.inventario) {
             if (equipo.isEquipado()) {
                 Equipamiento aEquipar = inventario.get(inventario.indexOf(equipo));
@@ -324,8 +341,10 @@ public class Jugador implements Comparable<Jugador> {
         actualizarInventario(null, false);
     }
 
+    // Incluye en la tupla de objetos equipados un nuevo objeto
     private void setEquipado(Equipamiento nuevoEquipado) throws JuegoException {
         if (nuevoEquipado != null) {
+            // Comprueba si hay otro objeto del mismo Tipo para intercambiarlos
             if (equipado[nuevoEquipado.getTipo().ordinal()] != null) {
                 Equipamiento viejoEquipado = equipado[nuevoEquipado.getTipo().ordinal()];
                 equipado[nuevoEquipado.getTipo().ordinal()] = nuevoEquipado;
@@ -333,13 +352,18 @@ public class Jugador implements Comparable<Jugador> {
                 inventario.add(viejoEquipado);
                 setInventario(inventario);
             } else {
+                // Si no es asi, establece el nuevo objeto en la posicion que le
+                // corresponde en la tupla
                 equipado[nuevoEquipado.getTipo().ordinal()] = nuevoEquipado;
             }
         }
     }
 
+    // Actualiza el valor total de cada atributo en funcion del objeto equipado
     private void actualizarAtributosEquipar() {
+        // Para evitar suma continua de valores se crea un contador desde 0
         atributosEquipo = new int[]{0, 0, 0, 0};
+        // Se recorre la tupla de Equipado para calcular la suma total de valores
         for (Equipamiento equipamiento : equipado) {
             if (equipamiento != null) {
                 switch (equipamiento.getTipo()) {
@@ -364,11 +388,15 @@ public class Jugador implements Comparable<Jugador> {
                 }
             }
         }
+        // Al finalizar la actualizacion de valores se actualizan los datos de
+        // estado del jugador
         setAtributosEquipo(atributosEquipo);
     }
 
+    // Actualiza el valor del atributo afectado al desequipar un objeto
     private void actualizarAtributosDesequipar(Equipamiento equipamiento) {
         if (equipamiento != null) {
+            // Comprueba el objeto desequipado
             switch (equipamiento.getTipo()) {
                 case Casco:
                     atributosEquipo[2] -= equipamiento.getNivel() * equipamiento.getPotenciado();
@@ -390,25 +418,34 @@ public class Jugador implements Comparable<Jugador> {
                     break;
             }
         }
+        // Al finalizar la actualizacion se actializan los datos de estado del
+        // jugador
         setAtributosEquipo(atributosEquipo);
     }
 
+    // Controla la generacion de nuevos objetos al finalizar misiones
     private Equipamiento crearEquipo() throws JuegoException {
         Random r = new Random();
 
+        // No siempre se obtienen objetos
         if (r.nextInt(PROBABILIDAD_CREAR_EQUIPO) == 0) {
+            // El tipo de objeto es aleatorio
             TipoEquipamiento tipo = TipoEquipamiento.values()[r.nextInt(TipoEquipamiento.values().length)];
-            String nombre = tipo.name().toString();
+            // El nivel del objeto depende del nivel de jugador
             int nivel = (this.nivel / 10) + 1;
+            // El potenciado inicial del objeto depende del nivel de este
             int potenciado = r.nextInt(nivel);
 
+            // Devuelve el objeto creado asignandole como propietario el jugador
+            // que completo la mision
             return new Equipamiento(this, tipo, nivel, potenciado, false);
         } else {
             return null;
         }
     }
 
-    // Metodos de flujo de juego
+    // Metodos para el flujo de juego propios del jugador
+    // Mejora un atributo concreto usando puntos ganados al subir de nivel
     public void subirAtributo(int atributo) throws JuegoException {
         setPuntosAtrSinUsar(puntosAtrSinUsar - 1);
         atributosJugador[atributo]++;
@@ -427,6 +464,7 @@ public class Jugador implements Comparable<Jugador> {
         combates[2]++;
     }
 
+    // Actualiza el total de misiones completadas y el oro total obtenido por recompensas
     public String subirMisiones(int recompensa) throws JuegoException {
         misiones[0]++;
         misiones[1] += recompensa * nivel;
@@ -434,28 +472,40 @@ public class Jugador implements Comparable<Jugador> {
         return String.valueOf(recompensa * nivel);
     }
 
+    // Gestiona la mision en curso
     public String avanzarMision() throws JuegoException {
         Equipamiento equipo;
         StringBuilder mensaje = new StringBuilder();
         try {
+            // Al pasar de turno se reduce el tiempo restante
             misionActiva.disminuirDuracion();
         } catch (JuegoException e) {
+            // Si la mision se completa se informa al jugador
             mensaje.append(e.getMessage());
             mensaje.append("\nRecibe: " + subirMisiones(misionActiva.getRecompensa()) + " monedas de oro");
+            // Genera la posibilidad de obtener un objeto nuevo
             equipo = crearEquipo();
             if (equipo != null) {
+                // Si hay objeto nuevo se informa al jugador y se incluye en su
+                // inventario
                 mensaje.append(" y un objeto nuevo");
                 mensaje.append(actualizarInventario(equipo, true));
             }
+            // Libera al jugador para poder realizar nuevas misiones
             setMisionActiva(null);
+            // Devuelve el mensaje de fin de mision
             return mensaje.toString();
         }
+        // No devuelve mensaje al no completarse la mision
         return "";
     }
 
+    // Gestiona los objetos en el inventario
+    // <<Metodo pendiente de actualizar>>
     public String actualizarInventario(Equipamiento equipamiento, boolean aniadir) {
         String mensaje = "";
         if (equipamiento != null) {
+            // Comprueba si se quiere incluir o eliminar el objeto especificado
             if (aniadir) {
                 if (inventario.size() < TAMANIO_MAX_INVENTARIO) {
                     inventario.add(equipamiento);
@@ -466,20 +516,27 @@ public class Jugador implements Comparable<Jugador> {
                 inventario.remove(equipamiento);
             }
         }
-        Collections.sort(inventario);
+
+        // Ordena los objetos en el inventario por el criterio definido en el
+        // metodo compareTo() de Equipamiento
+        Collections.sort(inventario); // <<Metodo pendiente de actualizar>>
         return mensaje;
     }
 
+    // Gestiona los objetos que circulan entre el inventario y el set equipado
     public void equiparDesequipar(Equipamiento equipo, boolean equipar) throws JuegoException {
         Equipamiento miEquipo;
 
         if (equipo != null) {
+            // Comprueba el sentido de circulacion del objeto
             if (equipar) {
+                // Mueve el objeto del inventario al set equipado
                 miEquipo = inventario.get(inventario.indexOf(equipo));
                 miEquipo.setEquipado(equipar);
                 setInventario(inventario);
                 actualizarAtributosEquipar();
             } else {
+                // Mueve el objeto del set equipado al inventario
                 miEquipo = equipado[equipo.getTipo().ordinal()];
                 equipado[equipo.getTipo().ordinal()] = null;
                 miEquipo.setEquipado(equipar);
@@ -489,11 +546,17 @@ public class Jugador implements Comparable<Jugador> {
         }
     }
 
+    // Aumenta el nivel de pontenciado del objeto
     public void mejorarEquipo(Equipamiento equipo) throws JuegoException {
+        // Comprueba si el jugador tiene monedas suficientes para la accion
         if (getOroActual() > equipo.getValorPotenciar()) {
+            // Reduce del oro actual del jugador el coste de la accion
             oroActual -= equipo.getValorPotenciar();
+            // Actualiza el valor del atributo al que afecta el objeto
             equipo.aumentarPotenciado();
             if (equipo.isEquipado()) {
+                // Si el objeto esta equipado, actualiza los datos de estado del
+                // jugador
                 actualizarAtributosEquipar();
             }
         } else {
@@ -501,12 +564,19 @@ public class Jugador implements Comparable<Jugador> {
         }
     }
 
+    // Gestiona la venta de un objeto del inventario del jugador
+    // <<Metodo pendiente de actualizar>>
     public void venderEquipo(Equipamiento equipo) throws JuegoException {
+        // Comprueba si el objeto a vender esta en el inventario y pudo ser vendido
         if (inventario.remove(equipo)) {
+            // Suma el valor de venta del objeto al oro actual del jugador
             setOroActual((int) (oroActual + (equipo.getValor() / TASA_VENTA_DIRECTA)));
+            // Informa al jugador del exito de la accion
             throw new JuegoException("Has vendido el objeto por " + (equipo.getValor() / TASA_VENTA_DIRECTA));
         } else if (equipado[equipo.getTipo().ordinal()].equals(equipo)) {
-            equipado[equipo.getTipo().ordinal()] = null;
+            // Si el objeto estaba equipado lo elimina del set
+            equipado[equipo.getTipo().ordinal()] = null; // <<Codigo pendiente de actualizar>>
+            // Suma el valor de venta del objeto al oro actual del jugador
             setOroActual((int) (oroActual + (equipo.getValor() / TASA_VENTA_DIRECTA)));
             throw new JuegoException("Has vendido el objeto por " + (equipo.getValor() / TASA_VENTA_DIRECTA));
         } else {

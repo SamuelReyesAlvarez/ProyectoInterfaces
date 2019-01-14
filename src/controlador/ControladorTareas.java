@@ -20,9 +20,13 @@ import vista.ventana.VentanaJuego;
  *
  * @author Samuel Reyes
  *
+ * Gestiona las funciones disponibles en los paneles de Mision, Bazar y
+ * Clasificacion
+ *
  */
 public class ControladorTareas extends MouseAdapter implements ActionListener {
 
+    // Objetos necesarios para la gestion de la ventana
     private VentanaJuego vJuego;
     private PanelMision pMision;
     private PanelBazar pBazar;
@@ -30,11 +34,13 @@ public class ControladorTareas extends MouseAdapter implements ActionListener {
     private ControladorJuego ctrJuego;
     private FlujoJuego flujoJuego;
 
+    // Constructor
     public ControladorTareas(VentanaJuego vJ, JPanel panelActivo, FlujoJuego flujo, ControladorJuego ctrJ) {
         vJuego = vJ;
         ctrJuego = ctrJ;
         flujoJuego = flujo;
 
+        // Comprueba que panel se esta activando
         if (panelActivo instanceof PanelMision) {
             pMision = (PanelMision) panelActivo;
             actualizarPMision();
@@ -47,11 +53,16 @@ public class ControladorTareas extends MouseAdapter implements ActionListener {
         }
     }
 
+    // Controla las funciones definidas en los componentes que poseen un
+    // escuchador de eventos
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
+            // Comprueba que componente recibio el evento y ejecuta su funcion
             switch (e.getActionCommand()) {
                 case "aceptarMision":
+                    // Controla que el usuario haya seleccionado una mision y la
+                    // establece como "en curso"
                     if (pMision.getSeleccionado() < 0) {
                         throw new JuegoException("Primero debes seleccionar una mision");
                     }
@@ -65,6 +76,9 @@ public class ControladorTareas extends MouseAdapter implements ActionListener {
                     }
                     break;
                 case "aceptarCompra":
+                    // Controla que el usuario haya seleccionado un objeto del
+                    // bazar y pregunta si acepta comprarlo tras mostrar datos
+                    // referentes al mismo
                     if (pBazar.getSeleccionado() < 0) {
                         throw new JuegoException("Primero debes seleccionar un articulo");
                     }
@@ -82,6 +96,7 @@ public class ControladorTareas extends MouseAdapter implements ActionListener {
         }
     }
 
+    // Muestra informacion del jugador seleccionado en la tabla de clasificacion
     @Override
     public void mouseClicked(MouseEvent e) {
         //StringBuilder estado = new StringBuilder();
@@ -106,9 +121,11 @@ public class ControladorTareas extends MouseAdapter implements ActionListener {
         }
     }
 
+    // Actualiza los datos mostrados en el panel de mision
     private void actualizarPMision() {
         String[] misiones;
 
+        // Cambia el aspecto del panel Mision segun tenga mision activa o no el jugador
         if (flujoJuego.getJugador().getMisionActiva() == null) {
             misiones = new String[flujoJuego.getMisiones().size()];
 
@@ -133,6 +150,7 @@ public class ControladorTareas extends MouseAdapter implements ActionListener {
         pMision.setMisiones(misiones);
     }
 
+    // Actualiza la informacion mostrada en el panel de Bazar
     private void actualizarPBazar() {
         String[] articulos = new String[flujoJuego.getMercado().size()];
 
@@ -146,6 +164,7 @@ public class ControladorTareas extends MouseAdapter implements ActionListener {
         pBazar.setArticulos(articulos);
     }
 
+    // Actualiza los datos que contiene la tabla del panel de Clasificacion
     private void actualizarPClasificacion() {
         LinkedList<Jugador> clasificacion = flujoJuego.crearClasificacion();
         Object[][] datos = new Object[clasificacion.size()][pClasificacion.getTabla().getModel().getColumnCount()];

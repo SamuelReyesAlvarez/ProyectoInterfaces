@@ -4,14 +4,20 @@ package modelo;
  *
  * @author Samuel Reyes
  *
+ * Define las caracteristicas y funciones basicas de los objetos equipables por
+ * el jugador
+ *
  */
 public class Equipamiento implements Comparable<Equipamiento> {
 
+    // Valores predefinidos para el objeto
     private static final int VALOR_BASE = 500;
     private static final int VALOR_POTENCIADO = 150;
 
+    // Valor de identificacion unica para cada objeto
     private static int idProximo = 1;
 
+    // Atributos que definen al objeto
     private Jugador propietario;
     private TipoEquipamiento tipo;
     private int identificador;
@@ -21,6 +27,7 @@ public class Equipamiento implements Comparable<Equipamiento> {
     private boolean equipado;
     private boolean enVenta;
 
+    // Constructor principal
     public Equipamiento(Jugador propietario, TipoEquipamiento tipo, int nivel, int potenciado, boolean equipado) throws JuegoException {
         setPropietario(propietario);
         this.tipo = tipo;
@@ -36,6 +43,7 @@ public class Equipamiento implements Comparable<Equipamiento> {
         identificador = id;
     }
 
+    // Metodos que devuelven los valores definidos en el objetos
     public int getIdProximo() {
         return idProximo;
     }
@@ -80,6 +88,7 @@ public class Equipamiento implements Comparable<Equipamiento> {
         return enVenta;
     }
 
+    // Metodos que establecen los valores que definen al objeto
     protected void setPropietario(Jugador propietario) {
         this.propietario = propietario;
     }
@@ -107,6 +116,7 @@ public class Equipamiento implements Comparable<Equipamiento> {
         }
     }
 
+    // Permite subir el nivel de mejora de un objeto
     public void aumentarPotenciado() throws JuegoException {
         if (potenciado == nivel * 10) {
             throw new JuegoException("Limite de potenciado alcanzado");

@@ -27,13 +27,17 @@ import vista.ventana.VentanaJuego;
  *
  * @author Samuel Reyes
  *
+ * Gestiona las funciones disponibles en el panel de juego
+ *
  */
 public class ControladorJuego implements ActionListener {
 
+    // Localizacion de los archivos necesarios para las funciones de la ventana
     private static final String FICHERO_TUTORIAL = "archivos/Tutorial.pdf";
     private static final String FICHERO_MANUAL = "archivos/ManualUsuario.pdf";
     private static final String RUTA_AYUDA = "help/help_set.hs";
 
+    // Objetos necesarios para gestionar la ventana
     private FlujoJuego flujoJuego;
     private VentanaJuego vJuego;
     private MenuJuego menu;
@@ -42,6 +46,7 @@ public class ControladorJuego implements ActionListener {
     private BasesDeDatos bDatos;
     private ControladorEstado ctrEstado;
 
+    // Controlador
     public ControladorJuego(BasesDeDatos bd, VentanaJuego vJ, FlujoJuego flujo) {
         flujoJuego = flujo;
         vJuego = vJ;
@@ -53,6 +58,7 @@ public class ControladorJuego implements ActionListener {
 
         actualizarPJuego();
 
+        // Carga el panel interno por defecto en la zona dinamica de la ventana
         pEstado.addControlador(ctrEstado);
         menu.addControlador(this);
         pJuego.addControlador(this);
@@ -63,6 +69,8 @@ public class ControladorJuego implements ActionListener {
         activarAyuda();
     }
 
+    // Controla la ejecucion de las funciones definidas en los componentes de la
+    // ventana que poseen escucha de eventos
     @Override
     public void actionPerformed(ActionEvent e) {
         ControladorDuelo ctrDuelo;
@@ -70,16 +78,19 @@ public class ControladorJuego implements ActionListener {
         int opcion;
 
         try {
+            // Comprueba que componente recibio el evento
             switch (e.getActionCommand()) {
                 case "terminarTurno":
-                    // deshabilita el boton Terminar Turno mientras se realiza la simulacion
+                    // Deshabilita el boton Terminar Turno mientras se realiza
+                    // la simulacion
                     pJuego.getBotonTerminar().setEnabled(false);
-                    // simula los jugadores de la maquina
+                    // Simula los jugadores de la maquina
                     String mensaje = flujoJuego.pasarTurno();
                     if (mensaje != null && mensaje.length() > 0) {
                         JOptionPane.showMessageDialog(vJuego, mensaje);
                     }
-                    // activa de nuevo el boton Terminar Turno y actualiza la pantalla de juego
+                    // Activa de nuevo el boton Terminar Turno y actualiza la
+                    // pantalla de juego
                     pJuego.getBotonTerminar().setEnabled(true);
                     pEstado = new PanelEstado();
                     ctrEstado = new ControladorEstado(vJuego, pJuego, pEstado, flujoJuego, this);
@@ -88,18 +99,23 @@ public class ControladorJuego implements ActionListener {
                     JOptionPane.showMessageDialog(vJuego, "Comienza el turno " + flujoJuego.getTurnoDeJuego());
                     break;
                 case "tutorial":
-                    // Tutorial paso a paso de tareas en la aplicacion
+                    // Abre el pdf con el Tutorial paso a paso de tareas en la aplicacion
                     Desktop.getDesktop().open(new File(FICHERO_TUTORIAL));
                     break;
                 case "manual":
-                    // Manual de usuario
+                    // Abre el Manual de usuario
                     Desktop.getDesktop().open(new File(FICHERO_MANUAL));
                     break;
                 case "guardar":
+                    // Almacena los datos de la partida en la base de datos y
+                    // actualiza la informacion de la partida en el fichero de
+                    // partidas guardadas
                     bDatos.guardarDatos(flujoJuego);
                     JOptionPane.showMessageDialog(pEstado, "Partida guardada");
                     break;
                 case "salirPartida":
+                    // Pregunta al usuario si desea guardar la partida antes de
+                    // salir al menu principal y controla su respuesta
                     opcion = JOptionPane.showConfirmDialog(vJuego, "Vas a salir de la partida, ¿deseas guardarla?", "Salir de la partida", JOptionPane.YES_NO_OPTION);
                     if (opcion == JOptionPane.YES_OPTION) {
                         bDatos.guardarDatos(flujoJuego);
@@ -113,6 +129,8 @@ public class ControladorJuego implements ActionListener {
                     }
                     break;
                 case "salirJuego":
+                    // Pregunta al usuario si desea guardar la partida antes de
+                    // salir al menu principal y controla su respuesta
                     opcion = JOptionPane.showConfirmDialog(vJuego, "Vas a salir del juego, ¿deseas guardar la partida?", "Salir del juego", JOptionPane.YES_NO_OPTION);
                     if (opcion == JOptionPane.YES_OPTION) {
                         bDatos.guardarDatos(flujoJuego);
@@ -124,12 +142,14 @@ public class ControladorJuego implements ActionListener {
                     }
                     break;
                 case "estado":
+                    // Muestra la el panel de Estado en la zona dinamica de la ventana
                     pEstado = new PanelEstado();
                     ctrEstado = new ControladorEstado(vJuego, pJuego, pEstado, flujoJuego, this);
                     pEstado.addControlador(ctrEstado);
                     pJuego.setPdCentro(pEstado);
                     break;
                 case "duelo":
+                    // Muestra la el panel de Duelo en la zona dinamica de la ventana
                     if (flujoJuego.getJugador().getPosiblesDuelistas() == null) {
                         flujoJuego.crearDuelistas(flujoJuego.getJugador());
                     }
@@ -139,18 +159,21 @@ public class ControladorJuego implements ActionListener {
                     pJuego.setPdCentro(pDuelo);
                     break;
                 case "mision":
+                    // Muestra la el panel de Mision en la zona dinamica de la ventana
                     PanelMision pMision = new PanelMision();
                     ctrTareas = new ControladorTareas(vJuego, pMision, flujoJuego, this);
                     pMision.addControlador(ctrTareas);
                     pJuego.setPdCentro(pMision);
                     break;
                 case "bazar":
+                    // Muestra la el panel de Bazar en la zona dinamica de la ventana
                     PanelBazar pBazar = new PanelBazar();
                     ctrTareas = new ControladorTareas(vJuego, pBazar, flujoJuego, this);
                     pBazar.addControlador(ctrTareas);
                     pJuego.setPdCentro(pBazar);
                     break;
                 case "clasificacion":
+                    // Muestra la el panel de Clasificacion en la zona dinamica de la ventana
                     PanelClasificacion pClasificacion = new PanelClasificacion();
                     ctrTareas = new ControladorTareas(vJuego, pClasificacion, flujoJuego, this);
                     pClasificacion.addControlador(ctrTareas);
@@ -164,6 +187,7 @@ public class ControladorJuego implements ActionListener {
         }
     }
 
+    // Actualiza la informacion de la ventana con los datos de la partida requeridos
     protected void actualizarPJuego() {
         pJuego.setAtaqueMinMax(String.valueOf(flujoJuego.getJugador().getAtaqueMin()) + " - " + String.valueOf(flujoJuego.getJugador().getAtaqueMax()));
         pJuego.setDefensaMinMax(String.valueOf(flujoJuego.getJugador().getDefensaMin()) + " - " + String.valueOf(flujoJuego.getJugador().getDefensaMax()));
@@ -178,10 +202,13 @@ public class ControladorJuego implements ActionListener {
         vJuego.repaint();
     }
 
+    // Devuelve el estado de la conexion con la base de datos para el control de
+    // la ejecucion desde el Main
     public BasesDeDatos getBD() {
         return bDatos;
     }
 
+    // Muestra la ayuda de la aplicacion
     public void activarAyuda() {
         // JavaHelp
         try {

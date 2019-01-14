@@ -67,7 +67,7 @@ public class ControladorEntrada implements ActionListener {
         activarAyuda();
     }
 
-    // Controla las acciones realizadas por el usuario sobre los botones que
+    // Controla las acciones realizadas por el usuario sobre los componentes que
     // poseen escuchadores de eventos
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -82,33 +82,39 @@ public class ControladorEntrada implements ActionListener {
                     }
                     break;
                 case "nueva":
-                    // obtiene el nombre escrito por el usuario en la etiqueta
+                    // Obtiene el nombre escrito por el usuario en la etiqueta
                     nombre = pEntrada.getTxtNombre().getText();
-                    // comprueba si ya hay una partida con ese nombre
+                    // Comprueba si ya hay una partida con ese nombre
                     if (!pEntrada.getNombresTabla().contains(nombre.toUpperCase())) {
-                        // comprueba si el nombre tiene el formato correcto
+                        // Comprueba si el nombre tiene el formato correcto
                         new Jugador(nombre);
                         bd = new BasesDeDatos(nombre);
                         nueva = true;
-                        // si todo bien, comienza una nueva partida
+                        // Si todo bien, comienza una nueva partida
                     } else {
                         JOptionPane.showMessageDialog(vEntrada, "Ya existe una partida guardada con ese nombre");
                     }
                     break;
                 case "cargar":
                     try {
+                        // Obtiene el nombre de la partida seleccionada en la tabla
                         nombre = pEntrada.getTabla().getValueAt(pEntrada.getTabla().getSelectedRow(), 1).toString();
                         bd = new BasesDeDatos(nombre);
                         nueva = false;
+                        // Si todo va bien, carga la partida guardada
                     } catch (ArrayIndexOutOfBoundsException ex) {
                         JOptionPane.showMessageDialog(vEntrada, "Debe seleccionar una partida para cargar");
                     }
                     break;
                 case "borrar":
                     try {
+                        // Obtiene el nombre de la partida seleccionada en la tabla
                         String partida = pEntrada.getTabla().getValueAt(pEntrada.getTabla().getSelectedRow(), 1).toString();
                         bd = new BasesDeDatos(partida);
+                        // Elimina la partida de la base de datos y el registro
+                        // del fichero que alimenta la tabla
                         bd.eliminarDatos(partida);
+                        // Actualiza los datos en la tabla
                         pEntrada.setDatosTabla(fRegistros.cargarRegistros());
                         bd.cerrarConexion();
                         nombre = null;
@@ -126,6 +132,7 @@ public class ControladorEntrada implements ActionListener {
                     vEntrada.repaint();
                     break;
                 case "salir":
+                    // Sale por completo de la aplicacion
                     System.exit(0);
                     break;
             }
@@ -143,6 +150,7 @@ public class ControladorEntrada implements ActionListener {
     public FlujoJuego iniciarCarga(VentanaCarga vCarga, VentanaJuego vJuego, BasesDeDatos bd, String nombre, boolean nuevaPartida) {
         vEntrada.dispose();
 
+        // Indica al bean personalizado las ventanas a gestionar
         vCarga.getBarraProgreso().setVentanaPadre(vCarga);
         vCarga.getBarraProgreso().setVentanaNueva(vJuego);
         vCarga.setVisible(true);
@@ -151,6 +159,7 @@ public class ControladorEntrada implements ActionListener {
 
         flujoJuego = new FlujoJuego();
 
+        // Crea o carga los datos de la partida
         try {
             if (nuevaPartida) {
                 flujoJuego.iniciarDatos(nombre);
@@ -161,6 +170,7 @@ public class ControladorEntrada implements ActionListener {
             JOptionPane.showMessageDialog(vCarga, ex);
         }
 
+        // Simula el progreso de la barra de carga
         for (int i = 0; i <= 100; i++) {
             vCarga.getBarraProgreso().setProgreso(i);
             vCarga.getBarraProgreso().setBordeYTexto(null, "Cargando " + i + "%");
@@ -174,11 +184,13 @@ public class ControladorEntrada implements ActionListener {
 
         }
 
+        // Activa la funcion especial del bean
         vCarga.getBarraProgreso().cambioDeVentana();
 
         return flujoJuego;
     }
 
+    // Metodos que devuelven al Main los datos necesarios para continuar la ejecucion
     public String getNombre() {
         return nombre;
     }
@@ -195,6 +207,7 @@ public class ControladorEntrada implements ActionListener {
         return flujoJuego;
     }
 
+    //
     public void activarAyuda() {
         try {
             // Carga el fichero de ayuda
@@ -208,7 +221,6 @@ public class ControladorEntrada implements ActionListener {
             // Activa Help y Tutorial en botones
             // Asigna la tecla F1 para la ventana actual (no fundiona)
             hb.enableHelpOnButton(pEntrada.getAyuda(), "aplicacion", helpset);
-            //hb.enableHelpOnButton(pEntrada.getTutorial(), "tutorial", helpset);
             hb.enableHelpKey(vEntrada.getContentPane(), "ventana_entrada", helpset);
         } catch (MalformedURLException | HelpSetException ex) {
             JOptionPane.showMessageDialog(vEntrada, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
